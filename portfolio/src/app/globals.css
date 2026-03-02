@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-background: #0E1116;
+  --color-foreground: #fafafa;
+  --color-muted: #a1a1aa;
+  --color-muted-foreground: #71717a;
+  --color-border: #27272a;
+  --color-card: #111111;
+  --color-card-hover: #1a1a1a;
+  --color-accent: #e4e4e7;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --color-background: #fafafa;
+  --color-foreground: #0E1116;
+  --color-muted: #71717a;
+  --color-muted-foreground: #a1a1aa;
+  --color-border: #e4e4e7;
+  --color-card: #ffffff;
+  --color-card-hover: #f4f4f5;
+  --color-accent: #27272a;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Dark mode gradient background — lovable.dev style with gentle animation */
+[data-theme="dark"] body,
+:root:not([data-theme="light"]) body {
+  background: #0E1116;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120, 60, 200, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 30% 100%, rgba(60, 80, 220, 0.2) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 70% 100%, rgba(180, 60, 180, 0.18) 0%, transparent 50%);
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+  animation: gradientBreath 12s ease-in-out infinite;
+}
+
+@keyframes gradientBreath {
+  0%, 100% {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120, 60, 200, 0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 30% 100%, rgba(60, 80, 220, 0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 35% at 70% 100%, rgba(180, 60, 180, 0.18) 0%, transparent 50%);
+  }
+  33% {
+    background-image:
+      radial-gradient(ellipse 85% 55% at 45% 100%, rgba(100, 50, 210, 0.28) 0%, transparent 62%),
+      radial-gradient(ellipse 55% 45% at 35% 100%, rgba(80, 60, 230, 0.22) 0%, transparent 58%),
+      radial-gradient(ellipse 55% 30% at 65% 100%, rgba(160, 70, 200, 0.15) 0%, transparent 48%);
+  }
+  66% {
+    background-image:
+      radial-gradient(ellipse 75% 48% at 55% 100%, rgba(130, 70, 190, 0.22) 0%, transparent 58%),
+      radial-gradient(ellipse 65% 38% at 25% 100%, rgba(50, 90, 210, 0.18) 0%, transparent 52%),
+      radial-gradient(ellipse 45% 40% at 75% 100%, rgba(190, 50, 170, 0.2) 0%, transparent 52%);
+  }
+}
+
+/* Light mode — clean solid background */
+[data-theme="light"] body {
+  background: #fafafa;
+  background-image: none;
+}
+
+::selection {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

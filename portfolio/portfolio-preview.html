@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shlomi Rozilyo — Portfolio Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --fg: #fafafa;
+      --muted: #a1a1aa;
+      --muted-fg: #71717a;
+      --border: #27272a;
+      --card: #111111;
+      --card-hover: #1a1a1a;
+    }
+    [data-theme="light"] {
+      --bg: #fafafa;
+      --fg: #0a0a0a;
+      --muted: #71717a;
+      --muted-fg: #a1a1aa;
+      --border: #e4e4e7;
+      --card: #ffffff;
+      --card-hover: #f4f4f5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    [data-theme="dark"] body {
+      background: #0a0a0a;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120, 60, 200, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 30% 100%, rgba(60, 80, 220, 0.2) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 70% 100%, rgba(180, 60, 180, 0.18) 0%, transparent 50%);
+      background-attachment: fixed;
+      animation: gradientBreath 12s ease-in-out infinite;
+    }
+    @keyframes gradientBreath {
+      0%, 100% {
+        background-image:
+          radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120, 60, 200, 0.25) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 40% at 30% 100%, rgba(60, 80, 220, 0.2) 0%, transparent 55%),
+          radial-gradient(ellipse 50% 35% at 70% 100%, rgba(180, 60, 180, 0.18) 0%, transparent 50%);
+      }
+      33% {
+        background-image:
+          radial-gradient(ellipse 85% 55% at 45% 100%, rgba(100, 50, 210, 0.28) 0%, transparent 62%),
+          radial-gradient(ellipse 55% 45% at 35% 100%, rgba(80, 60, 230, 0.22) 0%, transparent 58%),
+          radial-gradient(ellipse 55% 30% at 65% 100%, rgba(160, 70, 200, 0.15) 0%, transparent 48%);
+      }
+      66% {
+        background-image:
+          radial-gradient(ellipse 75% 48% at 55% 100%, rgba(130, 70, 190, 0.22) 0%, transparent 58%),
+          radial-gradient(ellipse 65% 38% at 25% 100%, rgba(50, 90, 210, 0.18) 0%, transparent 52%),
+          radial-gradient(ellipse 45% 40% at 75% 100%, rgba(190, 50, 170, 0.2) 0%, transparent 52%);
+      }
+    }
+    [data-theme="light"] body {
+      background: #fafafa;
+      background-image: none;
+    }
+    ::selection { background: var(--fg); color: var(--bg); }
+    .container { max-width: 975px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header { padding: 96px 0 64px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+    .header h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
+    .header .subtitle { color: var(--muted); font-size: clamp(1rem, 2vw, 1.25rem); margin-top: 12px; }
+    .subtitle .sep { margin: 0 8px; opacity: 0.4; }
+    .social-links { display: flex; gap: 12px; margin-top: 24px; }
+    .social-links a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: 9999px;
+      font-size: 14px; font-weight: 500;
+      color: var(--muted); border: 1px solid var(--border);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .social-links a:hover { color: var(--fg); border-color: var(--muted); }
+    .right-side { display: flex; align-items: flex-start; gap: 16px; flex-shrink: 0; }
+    .avatar {
+      width: 112px; height: 112px; border-radius: 50%;
+      border: 2px solid var(--border); background: var(--card);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem; font-weight: 700; color: var(--muted);
+      overflow: hidden; position: relative;
+    }
+    .avatar img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--muted); cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 4px; font-size: 18px;
+    }
+    .theme-toggle:hover { color: var(--fg); border-color: var(--muted); }
+
+    /* Segmented Tabs */
+    .tab-control { display: flex; justify-content: center; margin-bottom: 48px; }
+    .tab-group {
+      display: flex; position: relative;
+      border: 1px solid var(--border); border-radius: 6px;
+      overflow: hidden;
+    }
+    .tab-btn {
+      padding: 6px 20px; font-size: 14px; font-weight: 500;
+      background: transparent; border: none; color: var(--muted);
+      cursor: pointer; position: relative; z-index: 1; transition: color 0.25s;
+    }
+    .tab-btn.active { color: var(--fg); }
+    .tab-pill {
+      position: absolute; top: 2px; bottom: 2px; left: 2px;
+      width: calc(50% - 2px); border-radius: 4px;
+      background: var(--card-hover); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .tab-pill.right { transform: translateX(100%); }
+
+    /* Cards */
+    .card {
+      cursor: pointer; border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border); background: var(--card);
+      transition: all 0.3s; position: relative;
+    }
+    .card:hover { border-color: var(--muted-fg); transform: translateY(-2px); }
+    .card-image { position: relative; overflow: hidden; }
+    .card.featured .card-image { aspect-ratio: 975/401; }
+    .card.grid-card .card-image { aspect-ratio: 421/391; }
+    .card-image-inner { position: relative; width: 100%; height: 100%; }
+    .card-image-inner .gradient {
+      position: absolute; inset: 0; z-index: 1;
+    }
+    .card-image-inner img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
+      opacity: 0; transition: opacity 0.5s ease;
+    }
+    .card-image-inner img.loaded { opacity: 1; }
+    .skeleton {
+      position: absolute; inset: 0; background: var(--card); z-index: 0;
+    }
+    .skeleton::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.8s ease-in-out infinite;
+    }
+    .skeleton.hidden { display: none; }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .tag {
+      position: absolute; top: 16px; left: 16px; z-index: 5;
+      padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 500;
+      background: rgba(0,0,0,0.6); color: #fff; backdrop-filter: blur(8px);
+    }
+    .arrow-btn {
+      position: absolute; bottom: 16px; right: 16px; z-index: 5;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; transition: all 0.2s;
+    }
+    .card:hover .arrow-btn { background: rgba(255,255,255,0.2); }
+    .card-text { padding: 20px 24px 24px; }
+    .card-text h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.3; }
+    .card-text p { color: var(--muted); font-size: 0.875rem; margin-top: 4px; }
+    .explore {
+      display: flex; align-items: center; gap: 6px;
+      margin-top: 12px; font-size: 13px; font-weight: 500; color: var(--muted);
+    }
+    .card:hover .explore { color: var(--fg); }
+
+    /* Grid */
+    .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+
+    /* About Section */
+    .about-section { padding: 48px 0; }
+    .about-section h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; }
+    .about-section .bio { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 700px; }
+    .about-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .about-card {
+      padding: 24px; border-radius: 12px; border: 1px solid var(--border); background: var(--card);
+    }
+    .about-card h3 { font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; }
+    .about-card p { font-size: 0.8125rem; color: var(--muted); line-height: 1.6; }
+
+    /* Drawer */
+    .drawer-overlay {
+      display: none; position: fixed; inset: 0; z-index: 40;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+    }
+    .drawer-overlay.open { display: block; }
+    .drawer {
+      position: fixed; right: 0; top: 0; z-index: 50;
+      width: 70vw; min-width: 380px; max-width: 92vw;
+      height: 100vh; transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+      background: var(--bg); border-left: 1px solid var(--border);
+      overflow-y: auto; display: flex;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-handle {
+      flex-shrink: 0; width: 20px; cursor: col-resize;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .drawer-handle-bar {
+      width: 15px; height: 120px; border-radius: 8px;
+      background: var(--border); display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .drawer-handle:hover .drawer-handle-bar { background: var(--muted-fg); }
+    .drawer-content { flex: 1; overflow-y: auto; padding: 32px 40px; }
+    .drawer-header {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px;
+    }
+    .drawer-nav-btn {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--muted); cursor: pointer; display: flex;
+      align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .drawer-nav-btn:hover:not(:disabled) { color: var(--fg); border-color: var(--muted); }
+    .drawer-nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .drawer-counter { font-size: 13px; color: var(--muted-fg); }
+    .drawer-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .drawer-close {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--muted); cursor: pointer; display: flex;
+      align-items: center; justify-content: center; transition: all 0.2s;
+      margin-left: auto;
+    }
+    .drawer-close:hover { color: var(--fg); border-color: var(--muted); }
+    .drawer-tag {
+      display: inline-block; padding: 4px 12px; border-radius: 9999px;
+      font-size: 12px; font-weight: 500; border: 1px solid var(--border); color: var(--muted);
+    }
+    .drawer-title { font-size: 1.75rem; font-weight: 700; margin-top: 16px; line-height: 1.2; }
+    .drawer-subtitle { color: var(--muted); font-size: 1rem; margin-top: 8px; }
+    .drawer-meta { display: flex; gap: 32px; margin-top: 24px; padding: 20px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); }
+    .drawer-meta div { }
+    .drawer-meta label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-fg); }
+    .drawer-meta span { display: block; font-size: 14px; font-weight: 500; margin-top: 4px; }
+    .drawer-overview { margin-top: 32px; color: var(--muted); font-size: 1rem; line-height: 1.8; }
+    .drawer-section { margin-top: 40px; }
+    .drawer-section h3 { font-size: 1.125rem; font-weight: 600; }
+    .drawer-section p { color: var(--muted); margin-top: 12px; line-height: 1.8; }
+    .drawer-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+    .tool-tag {
+      padding: 6px 14px; border-radius: 9999px; font-size: 13px;
+      border: 1px solid var(--border); color: var(--muted);
+    }
+
+    /* Animations */
+    .animate-in { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+    .delay-7 { animation-delay: 0.7s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; }
+      .avatar { width: 80px; height: 80px; font-size: 1.5rem; }
+      .grid-2x2 { grid-template-columns: 1fr; }
+      .about-cards { grid-template-columns: 1fr; }
+      .drawer { width: 100vw; min-width: unset; }
+      .drawer-handle { display: none; }
+      .drawer-meta { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-inner">
+        <div>
+          <h1 class="animate-in">Shlomi Rozilyo</h1>
+          <p class="subtitle animate-in delay-1">
+            Senior Product Designer<span class="sep">·</span>Founding Designer @ Snyk<span class="sep">·</span>AI & Vibe Coding
+          </p>
+          <div class="social-links animate-in delay-2">
+            <a href="https://linkedin.com" target="_blank">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </a>
+            <a href="https://wa.me/" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16" height="16" fill-rule="evenodd" clip-rule="evenodd"><path fill="#fff" d="M4.9,43.3l2.7-9.8C5.9,30.6,5,27.3,5,24C5,13.5,13.5,5,24,5c5.1,0,9.8,2,13.4,5.6C41,14.2,43,18.9,43,24c0,10.5-8.5,19-19,19h0c-3.2,0-6.3-0.8-9.1-2.3L4.9,43.3z"/><path fill="#fff" d="M4.9,43.8c-0.1,0-0.3-0.1-0.4-0.1c-0.1-0.1-0.2-0.3-0.1-0.5L7,33.5c-1.6-2.9-2.5-6.2-2.5-9.6C4.5,13.2,13.3,4.5,24,4.5c5.2,0,10.1,2,13.8,5.7c3.7,3.7,5.7,8.6,5.7,13.8c0,10.7-8.7,19.5-19.5,19.5c-3.2,0-6.3-0.8-9.1-2.3L5,43.8C5,43.8,4.9,43.8,4.9,43.8z"/><path fill="#cfd8dc" d="M24,5c5.1,0,9.8,2,13.4,5.6C41,14.2,43,18.9,43,24c0,10.5-8.5,19-19,19h0c-3.2,0-6.3-0.8-9.1-2.3L4.9,43.3l2.7-9.8C5.9,30.6,5,27.3,5,24C5,13.5,13.5,5,24,5 M24,43L24,43L24,43 M24,43L24,43L24,43 M24,4L24,4C13,4,4,13,4,24c0,3.4,0.8,6.7,2.5,9.6L3.9,43c-0.1,0.3,0,0.7,0.3,1c0.2,0.2,0.4,0.3,0.7,0.3c0.1,0,0.2,0,0.3,0l9.7-2.5c2.8,1.5,6,2.2,9.2,2.2c11,0,20-9,20-20c0-5.3-2.1-10.4-5.8-14.1C34.4,6.1,29.4,4,24,4L24,4z"/><path fill="#40c351" d="M35.2,12.8c-3-3-6.9-4.6-11.2-4.6C15.3,8.2,8.2,15.3,8.2,24c0,3,0.8,5.9,2.4,8.4L11,33l-1.6,5.8l6-1.6l0.6,0.3c2.4,1.4,5.2,2.2,8,2.2h0c8.7,0,15.8-7.1,15.8-15.8C39.8,19.8,38.2,15.8,35.2,12.8z"/><path fill="#fff" fill-rule="evenodd" d="M19.3,16c-0.4-0.8-0.7-0.8-1.1-0.8c-0.3,0-0.6,0-0.9,0s-0.8,0.1-1.3,0.6c-0.4,0.5-1.7,1.6-1.7,4s1.7,4.6,1.9,4.9s3.3,5.3,8.1,7.2c4,1.6,4.8,1.3,5.7,1.2c0.9-0.1,2.8-1.1,3.2-2.3c0.4-1.1,0.4-2.1,0.3-2.3c-0.1-0.2-0.4-0.3-0.9-0.6s-2.8-1.4-3.2-1.5c-0.4-0.2-0.8-0.2-1.1,0.2c-0.3,0.5-1.2,1.5-1.5,1.9c-0.3,0.3-0.6,0.4-1,0.1c-0.5-0.2-2-0.7-3.8-2.4c-1.4-1.3-2.4-2.8-2.6-3.3c-0.3-0.5,0-0.7,0.2-1c0.2-0.2,0.5-0.6,0.7-0.8c0.2-0.3,0.3-0.5,0.5-0.8c0.2-0.3,0.1-0.6,0-0.8C20.6,19.3,19.7,17,19.3,16z" clip-rule="evenodd"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="avatar"><img src="portfolio/public/avatar.png" alt="Shlomi Rozilyo" onerror="this.style.display='none';this.parentElement.innerHTML='SR';" /></div>
+          <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☾</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- SEGMENTED TABS -->
+    <div class="tab-control animate-in delay-3">
+      <div class="tab-group">
+        <div class="tab-pill" id="tabPill"></div>
+        <button class="tab-btn active" id="tabWork" onclick="switchTab('work')">My Work</button>
+        <button class="tab-btn" id="tabAbout" onclick="switchTab('about')">About Me</button>
+      </div>
+    </div>
+
+    <!-- MY WORK TAB -->
+    <div id="workContent">
+      <!-- Featured Cards -->
+      <div class="card featured animate-in delay-4" onclick="openDrawer(0)">
+        <div class="card-image">
+          <div class="card-image-inner">
+            <div class="skeleton"></div>
+            <img src="portfolio/public/images/project-1.png" alt="AI-Driven Design Systems" loading="lazy" decoding="async" onload="this.classList.add('loaded');this.previousElementSibling.classList.add('hidden')" onerror="this.style.display='none';this.previousElementSibling.classList.add('hidden')">
+            <div class="gradient" style="background: linear-gradient(135deg, hsl(220,15%,18%), hsl(220,15%,28%))"></div>
+            <span class="tag">AI</span>
+            <div class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+          </div>
+        </div>
+        <div class="card-text">
+          <h3>AI-Driven Design Systems & Automated Prototyping</h3>
+          <p>Bridging the gap between Figma, Notion, and Production Code</p>
+          <div class="explore">Explore work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+      </div>
+
+      <div class="card featured animate-in delay-4" style="margin-top:20px" onclick="openDrawer(1)">
+        <div class="card-image">
+          <div class="card-image-inner">
+            <div class="skeleton"></div>
+            <div class="gradient" style="background: linear-gradient(135deg, hsl(250,15%,18%), hsl(250,15%,28%))"></div>
+            <span class="tag">AI / UX</span>
+            <div class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+          </div>
+        </div>
+        <div class="card-text">
+          <h3>AI-Powered Code Assistant</h3>
+          <p>Designing trust into AI-generated security fixes</p>
+          <div class="explore">Explore work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+      </div>
+
+      <div class="card featured animate-in delay-5" style="margin-top:20px" onclick="openDrawer(2)">
+        <div class="card-image">
+          <div class="card-image-inner">
+            <div class="skeleton"></div>
+            <div class="gradient" style="background: linear-gradient(135deg, hsl(280,15%,18%), hsl(280,15%,28%))"></div>
+            <span class="tag">Design Systems</span>
+            <div class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+          </div>
+        </div>
+        <div class="card-text">
+          <h3>Enterprise Design System</h3>
+          <p>Scaling design consistency across 12 product teams</p>
+          <div class="explore">Explore work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Grid Cards -->
+      <div class="grid-2x2">
+        <div class="card grid-card animate-in delay-5" onclick="openDrawer(3)">
+          <div class="card-image"><div class="card-image-inner"><div class="skeleton"></div><div class="gradient" style="background:linear-gradient(135deg,hsl(200,15%,18%),hsl(200,15%,28%))"></div><span class="tag">Mobile</span><div class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div></div></div>
+          <div class="card-text"><h3>Mobile Vulnerability Scanner</h3><p>Security scanning on-the-go for DevOps teams</p></div>
+        </div>
+        <div class="card grid-card animate-in delay-6" onclick="openDrawer(4)">
+          <div class="card-image"><div class="card-image-inner"><div class="skeleton"></div><div class="gradient" style="background:linear-gradient(135deg,hsl(160,15%,18%),hsl(160,15%,28%))"></div><span class="tag">Growth</span><div class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div></div></div>
+          <div class="card-text"><h3>Developer Onboarding</h3><p>From signup to first scan in under 3 minutes</p></div>
+        </div>
+        <div class="card grid-card animate-in delay-6" onclick="openDrawer(5)">
+          <div class="card-image"><div class="card-image-inner"><div class="skeleton"></div><div class="gradient" style="background:linear-gradient(135deg,hsl(30,15%,18%),hsl(30,15%,28%))"></div><span class="tag">Data Visualization</span><div class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div></div></div>
+          <div class="card-text"><h3>Security Reporting & Analytics</h3><p>Executive-ready security posture reports</p></div>
+        </div>
+        <div class="card grid-card animate-in delay-7" onclick="openDrawer(6)">
+          <div class="card-image"><div class="card-image-inner"><div class="skeleton"></div><div class="gradient" style="background:linear-gradient(135deg,hsl(300,10%,18%),hsl(300,10%,28%))"></div><span class="tag">Developer Tools</span><div class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div></div></div>
+          <div class="card-text"><h3>CLI Developer Experience</h3><p>Beautiful terminal interfaces for security tools</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT ME TAB -->
+    <div id="aboutContent" style="display:none">
+      <div class="about-section">
+        <h2>About Me</h2>
+        <p class="bio">I'm Shlomi Rozilyo — a Senior Product Designer and Founding Designer at Snyk, based in Tel Aviv. I specialize in translating complex technical problems into elegant, intuitive experiences. With a deep focus on AI/UX, design systems, and developer tools, I bridge the gap between design and engineering to ship products that actually work.</p>
+        <div class="about-cards">
+          <div class="about-card"><h3>Experience</h3><p>8+ years in product design, 4 years at Snyk building security tools for developers. Previously designed for fintech and e-commerce platforms.</p></div>
+          <div class="about-card"><h3>Passions</h3><p>AI-augmented design workflows, design systems at scale, developer experience, and the intersection of code and creativity.</p></div>
+          <div class="about-card"><h3>Expertise</h3><p>Product Design, Design Systems, AI/UX, Prototyping, User Research, Design-to-Code workflows, Frontend Development.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer Overlay -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+  <!-- Drawer -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-handle" id="drawerHandle">
+      <div class="drawer-handle-bar">
+        <svg width="10" height="48" viewBox="0 0 10 48"><line x1="3" y1="8" x2="3" y2="40" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><line x1="7" y1="8" x2="7" y2="40" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/></svg>
+      </div>
+    </div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <button class="drawer-nav-btn" id="drawerPrev" onclick="prevProject()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+        <span class="drawer-counter" id="drawerCounter">1 / 7</span>
+        <button class="drawer-nav-btn" id="drawerNext" onclick="nextProject()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        <div class="drawer-sep"></div>
+        <button class="drawer-close" onclick="closeDrawer()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+
+      <span class="drawer-tag" id="drawerTag"></span>
+      <h2 class="drawer-title" id="drawerTitle"></h2>
+      <p class="drawer-subtitle" id="drawerSubtitle"></p>
+
+      <div class="drawer-meta">
+        <div><label>Role</label><span id="drawerRole"></span></div>
+        <div><label>Duration</label><span id="drawerDuration"></span></div>
+        <div><label>Tools</label><span id="drawerTools"></span></div>
+      </div>
+
+      <p class="drawer-overview" id="drawerOverview"></p>
+
+      <div id="drawerSections"></div>
+
+      <div class="drawer-tools" id="drawerToolsList"></div>
+    </div>
+  </div>
+
+  <script>
+    const projects = [
+      { title: "AI-Driven Design Systems & Automated Prototyping", subtitle: "Bridging the gap between Figma, Notion, and Production Code", category: "AI", role: "Senior Design Engineer / Product Designer", duration: "2.5 months", tools: ["Figma","Claude AI","React","Tailwind","Notion"], overview: "Empowering Designers and Product Managers to generate high-fidelity, functional prototypes directly in code — and enabling designers to handle minor UI adjustments independently via Pull Requests.", sections: [{ title: "The Challenge: Reducing Design-to-Dev Friction", content: "The goal was to empower Designers and Product Managers to generate high-fidelity, functional prototypes directly in code and enable designers to handle minor UI adjustments independently via Pull Requests (PRs)." }, { title: "The Infrastructure: Component & Token Parity", content: "To achieve this, we established a comprehensive Design System in Figma with strict 1:1 parity between Figma components/tokens and our frontend library. By aligning naming conventions across both environments, we ensured that any design intent could be programmatically mapped to its coded counterpart." }, { title: "The Solution: LLM Integration & Workflow Automation", content: "Working closely with the engineering team, we integrated our proprietary frontend library with Claude (LLM) and connected the stack to Notion.\n\n• Autonomous Prototyping: By feeding product requirements directly from Notion into Claude, the system generates functional prototypes that strictly adhere to our Design System constraints.\n\n• Conversational UI Iteration: Designers can interact with Claude to perform real-time UI adjustments. Since the LLM is aware of the Design System's logic, it can suggest and implement changes that remain consistent with the brand's visual language.\n\n• Direct Implementation: This workflow allows designers to initiate PRs for minor visual changes, significantly reducing the engineering overhead for styling tasks." }, { title: "The Outcome", content: "• Design Autonomy: Designers and PMs can now validate ideas using production-grade code without manual intervention from frontend developers.\n\n• Accelerated Delivery: The time from PRD (Product Requirement Document) to a functional, clickable prototype was reduced from days to minutes.\n\n• System Integrity: High consistency across the product lifecycle by ensuring the LLM acts as a gatekeeper for the Design System's rules." }] },
+      { title: "AI-Powered Code Assistant", subtitle: "Designing trust into AI-generated security fixes", category: "AI / UX", role: "Senior Product Designer", duration: "4 months", tools: ["Figma","Protopie","GitHub","Linear"], overview: "Building trust in AI-generated code suggestions required a completely new interaction paradigm that balanced automation with developer control.", sections: [{ title: "The Challenge", content: "Developers are skeptical of AI-generated code changes. The design needed to build confidence while maintaining speed and flow." }, { title: "Key Insight", content: "Through user research, we discovered that transparency was more important than accuracy. Developers wanted to understand WHY a fix was suggested, not just WHAT the fix was." }, { title: "Design Solution", content: "Created a diff-view interface with inline explanations, confidence scores, and one-click rollback. The design emphasized reversibility at every step." }, { title: "Results", content: "72% acceptance rate for AI suggestions (up from 31%). Featured in Snyk's annual keynote presentation." }] },
+      { title: "Enterprise Design System", subtitle: "Scaling design consistency across 12 product teams", category: "Design Systems", role: "Design System Lead", duration: "Ongoing", tools: ["Figma","Storybook","Chromatic","ZeroHeight"], overview: "A design system built to scale — from component libraries to documentation, governance, and adoption strategy.", sections: [{ title: "The Challenge", content: "12 product teams working independently led to inconsistent patterns, duplicated effort, and a fragmented user experience." }, { title: "Approach", content: "Started with an audit of existing components across all products. Identified 340+ unique component variations that could be consolidated into 85 canonical components." }, { title: "Governance Model", content: "Established a contribution model where any team could propose additions. Created a review board with rotating members from different product areas." }, { title: "Impact", content: "60% reduction in design-to-dev handoff time. 95% adoption rate across all product teams within 8 months." }] },
+      { title: "Mobile Vulnerability Scanner", subtitle: "Security scanning on-the-go for DevOps teams", category: "Mobile", role: "Product Designer", duration: "3 months", tools: ["Figma","Principle","TestFlight"], overview: "A native mobile experience that brought Snyk's core scanning capabilities to developers' pockets.", sections: [{ title: "The Challenge", content: "DevOps engineers needed quick access to security alerts while on-call. The full web experience was too complex for mobile triage." }, { title: "Solution", content: "Designed a focused mobile experience centered around notifications, quick triage actions, and camera-based scanning for packages." }, { title: "Outcome", content: "Reduced alert response time by 55% for on-call engineers." }] },
+      { title: "Developer Onboarding", subtitle: "From signup to first scan in under 3 minutes", category: "Growth", role: "Product Designer", duration: "2 months", tools: ["Figma","Amplitude","Maze"], overview: "A progressive onboarding flow that met developers where they were — in their IDE, CLI, or browser.", sections: [{ title: "Problem", content: "67% of new users dropped off before completing their first scan. The setup process required too many steps and too much context." }, { title: "Solution", content: "Reduced the onboarding flow from 12 steps to 4. Introduced smart defaults and auto-detection of project types." }, { title: "Impact", content: "Time-to-first-scan reduced from 12 minutes to 2.5 minutes. Activation rate increased by 85%." }] },
+      { title: "Security Reporting & Analytics", subtitle: "Executive-ready security posture reports", category: "Data Visualization", role: "Senior Product Designer", duration: "3 months", tools: ["Figma","D3.js concepts","Looker"], overview: "Bridging the gap between technical vulnerability data and executive-level security reporting.", sections: [{ title: "Challenge", content: "CISOs needed to communicate security posture to boards. Existing reports were too technical and lacked business context." }, { title: "Approach", content: "Worked closely with 6 CISOs to understand their reporting needs. Designed customizable dashboards with exportable executive summaries." }, { title: "Result", content: "Became the #1 requested feature by enterprise accounts. Contributed to 23% increase in enterprise plan upgrades." }] },
+      { title: "CLI Developer Experience", subtitle: "Beautiful terminal interfaces for security tools", category: "Developer Tools", role: "Product Designer", duration: "2 months", tools: ["Figma","Terminal","Ink (React for CLI)"], overview: "Applying design thinking to the command line — where most developers actually spend their time.", sections: [{ title: "Challenge", content: "CLI output was a wall of text with no visual hierarchy. Developers couldn't quickly parse results or understand severity." }, { title: "Solution", content: "Designed a structured output format with color-coded severity, ASCII-art progress indicators, and collapsible detail levels." }, { title: "Impact", content: "CLI user satisfaction increased from 3.2 to 4.6 (out of 5). CLI became the fastest-growing integration channel." }] }
+    ];
+
+    let currentIndex = 0;
+
+    function openDrawer(index) {
+      currentIndex = index;
+      renderDrawer();
+      document.getElementById('drawerOverlay').classList.add('open');
+      document.getElementById('drawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').classList.remove('open');
+      document.getElementById('drawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function prevProject() { if (currentIndex > 0) { currentIndex--; renderDrawer(); } }
+    function nextProject() { if (currentIndex < projects.length - 1) { currentIndex++; renderDrawer(); } }
+
+    function renderDrawer() {
+      const p = projects[currentIndex];
+      document.getElementById('drawerTag').textContent = p.category;
+      document.getElementById('drawerTitle').textContent = p.title;
+      document.getElementById('drawerSubtitle').textContent = p.subtitle;
+      document.getElementById('drawerRole').textContent = p.role;
+      document.getElementById('drawerDuration').textContent = p.duration;
+      document.getElementById('drawerTools').textContent = p.tools.slice(0,2).join(', ');
+      document.getElementById('drawerOverview').textContent = p.overview;
+
+      let sectionsHtml = '';
+      p.sections.forEach(s => {
+        sectionsHtml += `<div class="drawer-section"><h3>${s.title}</h3><p>${s.content.replace(/\n\n/g, '<br><br>')}</p></div>`;
+      });
+      document.getElementById('drawerSections').innerHTML = sectionsHtml;
+
+      let toolsHtml = '';
+      p.tools.forEach(t => { toolsHtml += `<span class="tool-tag">${t}</span>`; });
+      document.getElementById('drawerToolsList').innerHTML = toolsHtml;
+
+      document.getElementById('drawerCounter').textContent = (currentIndex + 1) + ' / ' + projects.length;
+      document.getElementById('drawerPrev').disabled = currentIndex === 0;
+      document.getElementById('drawerNext').disabled = currentIndex === projects.length - 1;
+
+      document.querySelector('.drawer-content').scrollTop = 0;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('drawer').classList.contains('open')) return;
+      if (e.key === 'Escape') closeDrawer();
+      if (e.key === 'ArrowLeft') prevProject();
+      if (e.key === 'ArrowRight') nextProject();
+    });
+
+    // Tabs
+    function switchTab(tab) {
+      const pill = document.getElementById('tabPill');
+      if (tab === 'work') {
+        pill.classList.remove('right');
+        document.getElementById('tabWork').classList.add('active');
+        document.getElementById('tabAbout').classList.remove('active');
+        document.getElementById('workContent').style.display = '';
+        document.getElementById('aboutContent').style.display = 'none';
+      } else {
+        pill.classList.add('right');
+        document.getElementById('tabAbout').classList.add('active');
+        document.getElementById('tabWork').classList.remove('active');
+        document.getElementById('workContent').style.display = 'none';
+        document.getElementById('aboutContent').style.display = '';
+      }
+    }
+
+    // Theme
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeBtn');
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.setAttribute('data-theme', 'light');
+        btn.textContent = '☀';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = '☾';
+      }
+    }
+
+    // Drawer resize
+    let isDragging = false;
+    const drawer = document.getElementById('drawer');
+    const handle = document.getElementById('drawerHandle');
+    handle.addEventListener('mousedown', e => { isDragging = true; e.preventDefault(); });
+    document.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      const w = window.innerWidth - e.clientX;
+      const clamped = Math.max(380, Math.min(window.innerWidth * 0.92, w));
+      drawer.style.width = clamped + 'px';
+    });
+    document.addEventListener('mouseup', () => { isDragging = false; });
+  </script>
+</body>
+</html>
