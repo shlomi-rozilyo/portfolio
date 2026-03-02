@@ -43,37 +43,49 @@ body {
   min-height: 100vh;
 }
 
-/* Dark mode gradient background — lovable.dev style with gentle animation */
+/* Dark mode gradient background — with gentle animation */
 [data-theme="dark"] body,
 :root:not([data-theme="light"]) body {
   background: #0E1116;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120, 60, 200, 0.25) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 30% 100%, rgba(60, 80, 220, 0.2) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 35% at 70% 100%, rgba(180, 60, 180, 0.18) 0%, transparent 50%);
+    radial-gradient(ellipse 120% 70% at 50% 80%, rgba(120, 60, 200, 0.4) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 60% at 20% 70%, rgba(60, 80, 220, 0.32) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 55% at 80% 75%, rgba(180, 60, 180, 0.3) 0%, transparent 48%);
   background-size: 100% 100%, 100% 100%, 100% 100%;
   background-attachment: fixed;
   animation: gradientBreath 12s ease-in-out infinite;
 }
 
+/* Mobile: gradient visible above the fold */
+@media (max-width: 768px) {
+  [data-theme="dark"] body,
+  :root:not([data-theme="light"]) body {
+    background-attachment: scroll;
+    background-image:
+      radial-gradient(ellipse 150% 50% at 50% 40%, rgba(120, 60, 200, 0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 120% 45% at 20% 30%, rgba(60, 80, 220, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 40% at 80% 35%, rgba(180, 60, 180, 0.32) 0%, transparent 50%);
+  }
+}
+
 @keyframes gradientBreath {
   0%, 100% {
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120, 60, 200, 0.25) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 30% 100%, rgba(60, 80, 220, 0.2) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 35% at 70% 100%, rgba(180, 60, 180, 0.18) 0%, transparent 50%);
+      radial-gradient(ellipse 120% 70% at 50% 80%, rgba(120, 60, 200, 0.4) 0%, transparent 55%),
+      radial-gradient(ellipse 90% 60% at 20% 70%, rgba(60, 80, 220, 0.32) 0%, transparent 50%),
+      radial-gradient(ellipse 80% 55% at 80% 75%, rgba(180, 60, 180, 0.3) 0%, transparent 48%);
   }
   33% {
     background-image:
-      radial-gradient(ellipse 85% 55% at 45% 100%, rgba(100, 50, 210, 0.28) 0%, transparent 62%),
-      radial-gradient(ellipse 55% 45% at 35% 100%, rgba(80, 60, 230, 0.22) 0%, transparent 58%),
-      radial-gradient(ellipse 55% 30% at 65% 100%, rgba(160, 70, 200, 0.15) 0%, transparent 48%);
+      radial-gradient(ellipse 130% 75% at 45% 80%, rgba(100, 50, 210, 0.44) 0%, transparent 58%),
+      radial-gradient(ellipse 85% 65% at 25% 70%, rgba(80, 60, 230, 0.35) 0%, transparent 53%),
+      radial-gradient(ellipse 85% 50% at 75% 75%, rgba(160, 70, 200, 0.28) 0%, transparent 46%);
   }
   66% {
     background-image:
-      radial-gradient(ellipse 75% 48% at 55% 100%, rgba(130, 70, 190, 0.22) 0%, transparent 58%),
-      radial-gradient(ellipse 65% 38% at 25% 100%, rgba(50, 90, 210, 0.18) 0%, transparent 52%),
-      radial-gradient(ellipse 45% 40% at 75% 100%, rgba(190, 50, 170, 0.2) 0%, transparent 52%);
+      radial-gradient(ellipse 110% 65% at 55% 80%, rgba(130, 70, 190, 0.36) 0%, transparent 53%),
+      radial-gradient(ellipse 95% 55% at 15% 70%, rgba(50, 90, 210, 0.3) 0%, transparent 48%),
+      radial-gradient(ellipse 75% 60% at 85% 75%, rgba(190, 50, 170, 0.33) 0%, transparent 50%);
   }
 }
 
