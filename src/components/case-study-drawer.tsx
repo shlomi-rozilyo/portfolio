@@ -516,12 +516,12 @@ function DrawerContent({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
             >
-              <h3 className="text-lg font-semibold" style={{ color: "var(--color-foreground)" }}>{section.title}</h3>
-              <div className="mt-3 leading-relaxed" style={{ color: "var(--color-muted)" }}>
+              {section.title && <h3 className="text-lg font-semibold" style={{ color: "var(--color-foreground)" }}>{section.title}</h3>}
+              {section.content && <div className="mt-3 leading-relaxed" style={{ color: "var(--color-muted)" }}>
                 {section.content.split("\n\n").map((paragraph, pi) => (
                   <p key={pi} className={pi > 0 ? "mt-3" : ""}>{paragraph}</p>
                 ))}
-              </div>
+              </div>}
               {section.image && (
                 <div className={`mt-6 ${section.imageSmall ? "flex justify-center" : ""}`}>
                   <div className={`${section.imageSmall ? "w-[80%] rounded-xl" : "w-full"} overflow-hidden`}>

@@ -12,36 +12,49 @@ export function AboutSection() {
   return (
     <section className="mx-auto max-w-[975px] px-6 pt-4 pb-24">
       {/* Intro */}
-      <motion.div
-        {...fadeUp}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-2xl"
-      >
-        <h2
-          className="text-3xl font-bold tracking-tight md:text-4xl"
-          style={{ color: "var(--color-foreground)" }}
+      <div className="flex items-start gap-12">
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="flex-1"
         >
-          Hi, I'm Shlomi! 👋
-        </h2>
-        <p
-          className="mt-6 text-lg leading-relaxed"
-          style={{ color: "var(--color-foreground)" }}
+          <h2
+            className="text-3xl font-bold tracking-tight md:text-4xl"
+            style={{ color: "var(--color-foreground)" }}
+          >
+            Hi, I'm Shlomi! 👋
+          </h2>
+          <p
+            className="mt-6 text-lg leading-relaxed"
+            style={{ color: "var(--color-foreground)" }}
+          >
+            I've been a product designer for over a decade now. While most people run away from messy, complex technical problems, I'm the guy who actually enjoys them.
+          </p>
+          <p
+            className="mt-4 text-lg leading-relaxed"
+            style={{ color: "var(--color-foreground)" }}
+          >
+            I was the Founding Designer at Snyk, where I spent 4 years helping turn a small startup into a unicorn. My main focus was making complicated developer tools feel simple and easy to use.
+          </p>
+          <p
+            className="mt-4 text-lg leading-relaxed"
+            style={{ color: "var(--color-foreground)" }}
+          >
+            I take the work seriously, but I don't take myself too seriously. I'm a fan of honest talk, clear communication, and keeping things chill.
+          </p>
+        </motion.div>
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="hidden md:block flex-shrink-0"
         >
-          I've been a product designer for over a decade now. While most people run away from messy, complex technical problems, I'm the guy who actually enjoys them.
-        </p>
-        <p
-          className="mt-4 text-lg leading-relaxed"
-          style={{ color: "var(--color-foreground)" }}
-        >
-          I was the Founding Designer at Snyk, where I spent 4 years helping turn a small startup into a unicorn. My main focus was making complicated developer tools feel simple and easy to use.
-        </p>
-        <p
-          className="mt-4 text-lg leading-relaxed"
-          style={{ color: "var(--color-foreground)" }}
-        >
-          I take the work seriously, but I don't take myself too seriously. I'm a fan of honest talk, clear communication, and keeping things chill.
-        </p>
-      </motion.div>
+          <img
+            src="/images/shlomi.png"
+            alt="Shlomi Rozilyo"
+            className="w-64 h-64 object-cover rounded-2xl"
+          />
+        </motion.div>
+      </div>
 
       {/* Info cards */}
       <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
