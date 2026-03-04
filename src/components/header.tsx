@@ -123,7 +123,7 @@ export function Header() {
             >
               I love turning complex, technical problems into clean designs that just make sense.
               <br />
-              I'm a big believer in simplicity — taking dense, data-heavy workflows and shaping them into intuitive interfaces that feel light and easy to navigate.
+              I'm a big believer in simplicity, taking dense, data-heavy workflows and shaping them into intuitive interfaces that feel light and easy to navigate.
             </motion.p>
           </div>
 
